@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg2"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/pic1" />
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/username_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#DDDCDC"
+        android:hint="请 输 入 用 户 名"
+        android:inputType="text" />
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/password_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#DDDCDC"
+        android:hint="请 您 输 入 密 码"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        android:text="登   录" />
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="注   册" />
+
+</LinearLayout>

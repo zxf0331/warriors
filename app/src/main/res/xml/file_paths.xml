@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- 定义共享文件的路径，此处将文件存储在应用程序私有目录下的 'files' 文件夹中 -->
+    <external-files-path
+        name="my_images"
+        path="Pictures" />
+</paths>

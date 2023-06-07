@@ -8,20 +8,28 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.qm.R;
 import com.qm.draw.HeartActivity;
 import com.qm.music.LoveActivity;
+import com.qm.music.SlidePagerAdapter;
 
 public class FirstActivity extends AppCompatActivity {
     private ImageView button1, button2, button3, button4;
     //动画帧序列ImageView
     private ImageView mAnimationImageView;
+    private ViewPager viewPager;
+    private SlidePagerAdapter slidePagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        //设置适配器
+        viewPager = findViewById(R.id.viewPager);
+        slidePagerAdapter = new SlidePagerAdapter(this);
+        viewPager.setAdapter(slidePagerAdapter);
 
         button1 = findViewById(R.id.image1);
         button2 = findViewById(R.id.image2);

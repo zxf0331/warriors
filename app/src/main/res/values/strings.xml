@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">安卓结课大作业展示</string>
+    <string name="app_name">安卓期末项目</string>
     <string name="title_activity_second">SecondActivity</string>
     <string name="title_activity_fragment">Fragment</string>
 </resources>

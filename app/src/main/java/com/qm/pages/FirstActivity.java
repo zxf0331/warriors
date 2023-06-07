@@ -83,24 +83,6 @@ public class FirstActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-        /**
-         * 创建一个九张图的逐帧动画，并将其循环播放。
-         */
-        mAnimationImageView = findViewById(R.id.animationImageView);
-        mAnimationImageView.post(new Runnable() {
-            @Override
-            public void run() {
-                //将获取 ImageView 控件的 Drawable 对象强制转换为 AnimationDrawable 对象
-                AnimationDrawable animation = (AnimationDrawable) mAnimationImageView.getDrawable();
-                //调用 AnimationDrawable 的 start() 方法以开始播放动画
-                animation.start();
-            }
-        });
     }
 
 }

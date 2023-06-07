@@ -18,16 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
-    <!-- 逐帧动画-->
-    <ImageView
-        android:id="@+id/animationImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="230dp"
-        android:scaleType="center"
-        android:src="@drawable/animation_drawable" />
-
     <!--进入qq音乐按钮-->
 
     <Button

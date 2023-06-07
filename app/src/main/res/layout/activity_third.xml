@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg1">
+    android:background="@drawable/pure_bg2">
 
     <!--
             mProfileImageView = findViewById(R.id.profile_image_view);
@@ -16,7 +16,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:src="@drawable/touxiang" />
+        android:src="@drawable/curry_head" />
 
     <Button
         android:id="@+id/camera_button"
@@ -58,7 +58,7 @@
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/shzh" />
+            android:src="@drawable/setup" />
 
         <Button
             android:id="@+id/button"

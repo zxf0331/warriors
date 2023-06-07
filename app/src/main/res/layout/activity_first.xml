@@ -3,14 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/qqmusicbg">
+    android:background="@drawable/img">
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageview1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:src="@drawable/qqmusic" />-->
+
 
     <!--    轮播图-->
     <androidx.viewpager.widget.ViewPager
@@ -18,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
-    <!--进入qq音乐按钮-->
 
     <Button
         android:id="@+id/button"
@@ -29,15 +23,7 @@
         android:textColor="#7510E8"
         android:textSize="20sp" />
 
-    <!--爱心按钮-->
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="470dp"
-        android:background="@drawable/go"
-        android:text="点击加载爱心❤"
-        android:textSize="29sp" />
+
 
 
     <!-- 底部导航栏 -->
@@ -65,14 +51,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/image2" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/image3"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:onClick="onTabClick"-->
-<!--            android:scaleType="fitXY"-->
-<!--            android:src="@drawable/image3" />-->
+
 
         <ImageView
             android:id="@+id/image4"

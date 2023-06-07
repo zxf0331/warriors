@@ -55,7 +55,6 @@
         <activity android:name=".music.MusicActivity" />
         <activity android:name=".music.LoveActivity" />
         <activity android:name=".sensor.SensorActivity" />
-        <activity android:name=".draw.HeartActivity" />
     </application>
 
 </manifest>

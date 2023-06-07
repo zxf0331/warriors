@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.qm.R;
-import com.qm.draw.HeartActivity;
 import com.qm.music.LoveActivity;
 import com.qm.music.SlidePagerAdapter;
 
@@ -98,16 +97,6 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FirstActivity.this, LoveActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //页面跳转到画爱心页面
-        Button button6 = findViewById(R.id.button2);
-        button6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FirstActivity.this, HeartActivity.class);
                 startActivity(intent);
             }
         });

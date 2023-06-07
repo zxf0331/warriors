@@ -21,7 +21,7 @@ public class frag1 extends Fragment {
     private View view;
     //创建歌曲的String数组和歌手图片的int数组
     public String[] name={"邓紫棋——光年之外","蔡健雅——红色高跟鞋","Taylor Swift——Love Story"};
-    public static int[] icons={R.drawable.music0,R.drawable.music1,R.drawable.music2};
+    public static int[] icons={R.drawable.music,R.drawable.music,R.drawable.music};
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         //绑定布局，只不过这里是用inflate()方法

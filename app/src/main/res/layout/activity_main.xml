@@ -3,7 +3,7 @@
     android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pure_bg"
+    android:background="@drawable/pure_bg1"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -50,6 +50,6 @@
         android:layout_height="wrap_content"
         android:background="#EECCAA"
         android:textSize="25sp"
-        android:text="注 册" />
+        android:text="注册" />
 
 </LinearLayout>

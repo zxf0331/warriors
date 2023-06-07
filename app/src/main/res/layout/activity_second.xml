@@ -6,8 +6,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="视频播放器"
-        android:textColor="#1399F1"
+        android:text="Warriors Videos"
+        android:paddingLeft="100dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#f6c219"
+        android:background="#0146ad"
         android:textSize="30sp" />
 
         <WebView

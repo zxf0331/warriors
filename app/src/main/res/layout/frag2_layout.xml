@@ -7,6 +7,6 @@
         android:id="@+id/zj"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"/>
+        android:background="@drawable/img"/>
 
 </LinearLayout>

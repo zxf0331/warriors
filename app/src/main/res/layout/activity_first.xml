@@ -5,12 +5,19 @@
     android:layout_height="match_parent"
     android:background="@drawable/qqmusicbg">
 
-    <ImageView
-        android:id="@+id/imageview1"
+<!--    <ImageView-->
+<!--        android:id="@+id/imageview1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:src="@drawable/qqmusic" />-->
+
+    <!--    轮播图-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/qqmusic" />
+        android:layout_height="200dp" />
+
     <!-- 逐帧动画-->
     <ImageView
         android:id="@+id/animationImageView"

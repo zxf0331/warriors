@@ -17,17 +17,21 @@ public class DBHelper extends SQLiteOpenHelper {
                     UserEntry.COLUMN_NAME_USERNAME + " TEXT," +
                     UserEntry.COLUMN_NAME_PASSWORD + " TEXT)";
 
+    //删除表
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME;
 
+    //构造函数
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    //数据库升级操作
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
     }
 
+    //数据库创建操作 执行删除表操作
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
@@ -39,5 +43,6 @@ public class DBHelper extends SQLiteOpenHelper {
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_PASSWORD = "password";
     }
+
 }
 

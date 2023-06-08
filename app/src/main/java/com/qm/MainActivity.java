@@ -50,15 +50,18 @@ public class MainActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.login_button);
         mRegisterButton = findViewById(R.id.register_button);
 
+        //点击登录
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //获取用户名密码 为空则提醒
                 String username = mUsernameEditText.getText().toString().trim();
                 String password = mPasswordEditText.getText().toString().trim();
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                     Toast.makeText(MainActivity.this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //调用登录函数 登录成功跳转主页
                 boolean success = login(username, password);
                 if (success) {
                     Intent intent = new Intent(MainActivity.this, FirstActivity.class);
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //点击注册
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //调用注册函数
                 boolean success = register(username, password);
                 if (success) {
                     Toast.makeText(MainActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
@@ -90,21 +95,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 用户登录
-     *
+     * 用户登录方法
      * @param username 用户名
      * @param password 密码
      * @return 登录是否成功
      */
     private boolean login(String username, String password) {
+        //创建SQLiteDatabase示例
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
+        //1.需要查询的表列结构
         String[] projection = {
                 DBHelper.UserEntry._ID,
                 DBHelper.UserEntry.COLUMN_NAME_USERNAME,
                 DBHelper.UserEntry.COLUMN_NAME_PASSWORD
         };
+        //2.定义条件查询语句结构
         String selection = DBHelper.UserEntry.COLUMN_NAME_USERNAME + " = ?";
+        //3.定义结构中所需参数替换占位符
         String[] selectionArgs = {username};
+        //执行查询 db传入123 返回结果集
         Cursor cursor = db.query(
                 DBHelper.UserEntry.TABLE_NAME,
                 projection,
@@ -117,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         if (cursor != null && cursor.moveToFirst()) {
             String storedPassword = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.UserEntry.COLUMN_NAME_PASSWORD));
             cursor.close();
+            //获取返回”用户的密码“并比较输入密码 返回布尔值表示登录成功与否
             return storedPassword.equals(password);
         } else {
             if (cursor != null) {
@@ -127,8 +137,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 用户注册
-     *
+     * 用户注册方法
      * @param username 用户名
      * @param password 密码
      * @return 是否注册成功

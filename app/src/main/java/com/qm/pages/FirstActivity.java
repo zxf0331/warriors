@@ -58,7 +58,6 @@ public class FirstActivity extends AppCompatActivity {
 
         button1 = findViewById(R.id.image1);
         button2 = findViewById(R.id.image2);
-//        button3 = findViewById(R.id.image3);
         button4 = findViewById(R.id.image4);
 
 

@@ -4,4 +4,6 @@
     <string name="title_activity_fragment">Fragment</string>
     <string name="password">Password...</string>
     <string name="username">Username...</string>
+    <string name="todo">TODO</string>
+    <string name="todo1">TODO</string>
 </resources>

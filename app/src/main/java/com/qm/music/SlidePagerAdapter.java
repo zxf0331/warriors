@@ -13,7 +13,7 @@ import com.qm.R;
 public class SlidePagerAdapter extends PagerAdapter {
 
     private Context context;
-    private int[] slideImages = {R.drawable.image1, R.drawable.image2, R.drawable.image3};
+    private int[] slideImages = {R.drawable.poster1_players, R.drawable.poster2_team,R.drawable.poster1_players};
 
     public SlidePagerAdapter(Context context) {
         this.context = context;

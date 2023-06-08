@@ -46,11 +46,11 @@ public class SecondActivity extends AppCompatActivity {
          * 视频播放器1
          */
         WebView webView1 = findViewById(R.id.webView1);
-        webView1.getSettings().setMediaPlaybackRequiresUserGesture(true);
 
         //使用WebView加载网页
         webView1.loadUrl("https://warriorsgo.oss-cn-chengdu.aliyuncs.com/vdo/GoldenStateChampionSeason%20.mp4");
         //允许在应用程序中播放视频
+//        webView1.getSettings().setMediaPlaybackRequiresUserGesture(true);
 //        WebSettings webSettings1 = webView1.getSettings();
 //        webSettings1.setJavaScriptEnabled(true);
 //        webSettings1.setMediaPlaybackRequiresUserGesture(false);
@@ -59,7 +59,7 @@ public class SecondActivity extends AppCompatActivity {
          * 视频播放器2
          */
         WebView webView2 = findViewById(R.id.webView2);
-        webView2.getSettings().setMediaPlaybackRequiresUserGesture(true);
+//        webView2.getSettings().setMediaPlaybackRequiresUserGesture(true);
         //使用WebView加载网页
         webView2.loadUrl("https://warriorsgo.oss-cn-chengdu.aliyuncs.com/vdo/GetTheChampion.mp4");
         //允许在应用程序中播放视频

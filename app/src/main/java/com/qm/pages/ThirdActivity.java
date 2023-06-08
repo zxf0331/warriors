@@ -39,6 +39,7 @@ public class ThirdActivity extends AppCompatActivity {
     private Button mGalleryButton;
     private Button mUploadButton;
     private Uri mImageUri;
+    private Button button_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +48,16 @@ public class ThirdActivity extends AppCompatActivity {
 
         button1 = findViewById(R.id.image1);
         button2 = findViewById(R.id.image2);
-//        button3 = findViewById(R.id.image3);
         button4 = findViewById(R.id.image4);
 
-        mProfileImageView = findViewById(R.id.profile_image_view);
-        mCameraButton = findViewById(R.id.camera_button);
-        mGalleryButton = findViewById(R.id.gallery_button);
-        mUploadButton = findViewById(R.id.upload_button);
 
-        //获取 Android 手机上的传感器类型：
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+        mProfileImageView = findViewById(R.id.profile_image_view);//头像
+        mCameraButton = findViewById(R.id.camera_button);//相机
+        mGalleryButton = findViewById(R.id.gallery_button);//相册
+        mUploadButton = findViewById(R.id.upload_button);//上传
+        button_info = findViewById(R.id.button);//传感器信息
+
+
 
         //添加两个Button，一个用于拍照，另一个用于从相册中选择图片。最后，添加一个Button，用于上传选择的图片。
         mCameraButton.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +113,9 @@ public class ThirdActivity extends AppCompatActivity {
         /**
          * 获取到手机上所有可用的传感器列表，并循环遍历该列表,打印到日志中
          */
+        //获取 Android 手机上的传感器类型：
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
         for (Sensor sensor : sensorList) {
             Log.d("SENSOR", "名称: " + sensor.getName());
             Log.d("SENSOR", "类型: " + sensor.getType());
@@ -125,9 +128,8 @@ public class ThirdActivity extends AppCompatActivity {
         }
 
 
-        //传感器页面跳转
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        //点击跳转至传感器页面
+        button_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ThirdActivity.this, SensorActivity.class);
@@ -181,6 +183,7 @@ public class ThirdActivity extends AppCompatActivity {
         //该方法使用 File.createTempFile() 方法创建一个新的临时文件，并将其保存到应用程序的外部文件目录中。
         // 这个临时文件的名称将包含刚刚生成的时间戳字符串，并以 ".jpg" 作为文件扩展名。
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        System.out.println("storageDir = " + storageDir);
         File imageFile = File.createTempFile(
                 imageFileName,
                 ".jpg",

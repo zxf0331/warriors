@@ -31,7 +31,13 @@
         android:background="#f2f2f2"
         android:hint="@string/password"
         android:inputType="textPassword" />
-
+    <CheckBox
+        android:id="@+id/cb_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="是否记住密码"
+        />
     <Button
         android:id="@+id/login_button"
         android:layout_marginHorizontal="50dp"
@@ -51,5 +57,7 @@
         android:background="#EECCAA"
         android:textSize="25sp"
         android:text="注册" />
+
+
 
 </LinearLayout>

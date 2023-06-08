@@ -4,12 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/pure_bg2">
 
-    <!--
-            mProfileImageView = findViewById(R.id.profile_image_view);
-            mCameraButton = findViewById(R.id.camera_button);
-            mGalleryButton = findViewById(R.id.gallery_button);
-            mUploadButton = findViewById(R.id.upload_button);
-      -->
+
     <ImageView
         android:id="@+id/profile_image_view"
         android:layout_width="200dp"

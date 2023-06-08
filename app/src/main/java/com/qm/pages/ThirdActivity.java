@@ -1,9 +1,15 @@
 package com.qm.pages;
 
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,19 +18,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.content.PermissionChecker;
 
 import com.qm.R;
-import com.qm.sensor.SensorActivity;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 
@@ -39,7 +46,9 @@ public class ThirdActivity extends AppCompatActivity {
     private Button mGalleryButton;
     private Button mUploadButton;
     private Uri mImageUri;
-    private Button button_info;
+    private TextView welcome;
+
+    private TextView locationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +64,8 @@ public class ThirdActivity extends AppCompatActivity {
         mCameraButton = findViewById(R.id.camera_button);//相机
         mGalleryButton = findViewById(R.id.gallery_button);//相册
         mUploadButton = findViewById(R.id.upload_button);//上传
-        button_info = findViewById(R.id.button);//传感器信息
-
+        welcome = findViewById(R.id.welcome);//昵称欢迎
+        locationView = findViewById(R.id.location);
 
 
         //添加两个Button，一个用于拍照，另一个用于从相册中选择图片。最后，添加一个Button，用于上传选择的图片。
@@ -100,7 +109,6 @@ public class ThirdActivity extends AppCompatActivity {
         });
 
 
-
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,33 +117,71 @@ public class ThirdActivity extends AppCompatActivity {
             }
         });
 
+        //获取用户名
+        SharedPreferences users = getSharedPreferences("users", MODE_PRIVATE);
+        String welcomeUser = "Welcome " + users.getString("loginName", "游客");
+        welcome.setText(welcomeUser);
 
-        /**
-         * 获取到手机上所有可用的传感器列表，并循环遍历该列表,打印到日志中
-         */
-        //获取 Android 手机上的传感器类型：
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
-        for (Sensor sensor : sensorList) {
-            Log.d("SENSOR", "名称: " + sensor.getName());
-            Log.d("SENSOR", "类型: " + sensor.getType());
-            Log.d("SENSOR", "供应商: " + sensor.getVendor());
-            Log.d("SENSOR", "版本: " + sensor.getVersion());
-            Log.d("SENSOR", "功耗: " + sensor.getPower());
-            Log.d("SENSOR", "分辨率: " + sensor.getResolution());
-            Log.d("SENSOR", "最大测量范围: " + sensor.getMaximumRange());
-            Log.d("SENSOR", "最小延迟: " + sensor.getMinDelay());
+        //获取当前位置
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);//位置服务对象
+        //1.检查权限
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        Log.d("###权限###",isGPSEnabled+" "+isNetworkEnabled);
+        if (!isGPSEnabled && !isNetworkEnabled) {
+            // 用户未开启定位服务
+            locationView.setText("手机未开启定位权限");
+            //GPS未打开，跳转到GPS设置界面
+            Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivityForResult(intent, 0);
+        }
+        //2.位置获取
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                //位置变化时 获取新位置
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                String s = "经度：" + longitude + "\n" + "维度：" + latitude;
+                locationView.setText(s);
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+        //设置参数
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE); // 设置定位精度
+        criteria.setAltitudeRequired(false); // 不需要获取海拔信息
+        criteria.setBearingRequired(false); // 不需要获取方向信息
+        criteria.setCostAllowed(true); // 允许付费定位服务
+        criteria.setPowerRequirement(Criteria.POWER_LOW); // 低功耗定位
+
+        String provider = locationManager.getBestProvider(criteria, true); // 获取最优的定位提供者
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
         }
 
-
-        //点击跳转至传感器页面
-        button_info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ThirdActivity.this, SensorActivity.class);
-                startActivity(intent);
-            }
-        });
+        if (provider != null) {
+            locationManager.requestLocationUpdates(provider, 1000, 0, locationListener); // 设置位置更新条件和监听器
+        }
 
     }
 

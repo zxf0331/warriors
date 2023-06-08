@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         String loginName = sp.getString("loginName", "");
         String loginPassword = sp.getString("loginPassword", "");
-        Log.d("历史记住",loginName+" "+loginPassword);
         boolean isSave = sp.getBoolean("isSave", false);
         //用上面获取的先前保存数据填充账号密码输入框和记住密码checkbox
         mUsernameEditText.setText(loginName);
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("loginName",username);
                     editor.putString("loginPassword",checked?password:"");//勾选记住，保存密码。不勾选，保存空字符串。
                     editor.putBoolean("isSave",checked);
-                    Log.d("TEST:::::",editor.toString());
                     editor.apply();//保存数据
                     Toast.makeText(MainActivity.this, "欢迎"+username+"登录", Toast.LENGTH_SHORT).show();
                     //跳转

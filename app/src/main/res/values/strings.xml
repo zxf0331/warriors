@@ -6,4 +6,8 @@
     <string name="username">Username...</string>
     <string name="todo">TODO</string>
     <string name="todo1">TODO</string>
+    <string name="welcome_back_to_home">Welcome back to home</string>
+    <string name="save">保存</string>
+    <string name="gallery">相册</string>
+    <string name="camera">拍照</string>
 </resources>

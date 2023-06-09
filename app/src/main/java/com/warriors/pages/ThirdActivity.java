@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.warriors.R;
@@ -34,6 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -53,7 +58,7 @@ public class ThirdActivity extends AppCompatActivity {
     private ImageView mProfileImageView;
     private Button mCameraButton;
     private Button mGalleryButton;
-    private Button mUploadButton;
+    private Button mDownloadButton;
     private Uri mImageUri;
     private TextView welcome;
 
@@ -88,9 +93,9 @@ public class ThirdActivity extends AppCompatActivity {
         mProfileImageView = findViewById(R.id.profile_image_view);//头像
         mCameraButton = findViewById(R.id.camera_button);//相机
         mGalleryButton = findViewById(R.id.gallery_button);//相册
-        mUploadButton = findViewById(R.id.upload_button);//上传
+        mDownloadButton = findViewById(R.id.download_button);//上传
         welcome = findViewById(R.id.welcome);//昵称欢迎
-        locationView = findViewById(R.id.location);
+        locationView = findViewById(R.id.location);//定位TextView
 
 
         //添加两个Button，一个用于拍照，另一个用于从相册中选择图片。最后，添加一个Button，用于上传选择的图片。
@@ -108,10 +113,10 @@ public class ThirdActivity extends AppCompatActivity {
             }
         });
 
-        mUploadButton.setOnClickListener(new View.OnClickListener() {
+        mDownloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+               downloadImage();
             }
         });
 
@@ -286,17 +291,28 @@ public class ThirdActivity extends AppCompatActivity {
     }
 
     /**
-     * 上传图像文件
+     * 保存头像文件
      */
-    private void uploadImage() {
-        //检查成员变量 mImageUri 是否为 null
-        //如果 mImageUri 为 null，则表示用户尚未选择要上传的图像文件
-        if (mImageUri == null) {
-            Toast.makeText(this, "请先选择照片", Toast.LENGTH_SHORT).show();
-            return;
+    private void downloadImage() {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        //todo：实现了文件存储里的外部存储 头像->相册
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.curry_head);
+        String fileName = "Warriors_header.jpg";
+        String filePath = ThirdActivity.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + File.separator + fileName;
+        File file = new File(filePath);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            MediaStore.Images.Media.insertImage(getContentResolver(), file.getAbsolutePath(), fileName, null);
+            Toast.makeText(this, "图片保存成功", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "图片保存失败", Toast.LENGTH_SHORT).show();
         }
-        // 传照片至服务器
-        Toast.makeText(this, "上传成功", Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, "已保存至相册", Toast.LENGTH_SHORT).show();
     }
 
     //检查手机是否开启定位权限

@@ -63,7 +63,7 @@ public class MusicService extends Service {
             String[] songs = {
                     "https://ws.stream.qqmusic.qq.com/C400002gKWXE1w1uv4.m4a?guid=8963676&vkey=3D09F1EDE57FC857F924F2A6B617B0A598640BF8F23AB35901EA5B1C86300E2304FD7105868499B313E2C2F93A1DC934AB805AFE91AE89B9&uin=626567678&fromtag=103032",
                     "https://sx-sycdn.kuwo.cn/5f1a9892bdbcdfb99d0b09ea2a2a6edd/6482fe37/resource/n3/45/53/3651341960.mp3",
-                    "https://other-web-ri01-sycdn.kuwo.cn/79d4bb59cbb16d1772ced5773a4992d5/6482f070/resource/n1/87/57/3082041059.mp3",
+                    "https://ws.stream.qqmusic.qq.com/C400003Yn1vu1BzjDo.m4a?guid=7951402239&vkey=85A1019E82975E498BA3BE8D331C338D37722423A687CC9CC89DD14255F11DDD5F958FE240BE365E47BA2B209131C61CB7DDA89BA1A1A02E&uin=&fromtag=103032",
             };
 //            Uri uri=Uri.parse("android.resource://"+getPackageName()+"/raw/"+"music"+i);
             Uri uri=Uri.parse(songs[i]);

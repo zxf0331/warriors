@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.qm">
     <!-- 请求网络资源 -->
+    <!--网络权限-->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 授予应用程序使用摄像头的权限 -->
     <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
     <!-- startActivityForResult(intent, TAKE_PHOTO):原理里面添加了动态权限，不能与本地权限有冲突，所以注释掉 -->

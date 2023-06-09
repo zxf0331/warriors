@@ -1,6 +1,8 @@
 package com.qm.pages;
 
 
+import static com.google.gson.internal.$Gson$Types.arrayOf;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +13,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -21,15 +26,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.content.PermissionChecker;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.qm.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -49,6 +66,22 @@ public class ThirdActivity extends AppCompatActivity {
     private TextView welcome;
 
     private TextView locationView;
+    private final String MAPKEY = "SNZBZ-3PAWI-SW5GL-UXEBF-Y2VGK-MAF7V";
+    public static final int SUCCESS = 1;
+    public static final int ERROR = 0;
+
+    public ThirdActivity() {
+        handler = new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                if (msg.what == SUCCESS){
+                    //显示确切位置
+                    CharSequence preText = locationView.getText();
+                    locationView.setText( preText +"\n"+(CharSequence) msg.obj);
+                }
+            }
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,27 +157,35 @@ public class ThirdActivity extends AppCompatActivity {
 
         //获取当前位置
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);//位置服务对象
+        //0.位置点击事件 如果手机没开启定位则打开定位
+        locationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(locationView.getText()=="手机未开启定位权限"){
+                    Toast.makeText(ThirdActivity.this,"请打开手机定位权限", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(intent, 0);
+                }
+            }
+        });
         //1.检查权限
-        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        Log.d("###权限###",isGPSEnabled+" "+isNetworkEnabled);
-        if (!isGPSEnabled && !isNetworkEnabled) {
-            // 用户未开启定位服务
-            locationView.setText("手机未开启定位权限");
-            //GPS未打开，跳转到GPS设置界面
-            Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivityForResult(intent, 0);
-        }
+        this.checkLocationPermission(locationManager);
         //2.位置获取
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
         LocationListener locationListener = new LocationListener() {
+            private long count = 0l;
             @Override
             public void onLocationChanged(Location location) {
-                //位置变化时 获取新位置
-                double longitude = location.getLongitude();
-                double latitude = location.getLatitude();
-                String s = "经度：" + longitude + "\n" + "维度：" + latitude;
-                locationView.setText(s);
-
+                if(count%100==0){
+                    //位置变化时 获取新位置
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    getActualLocation(latitude,longitude);//子线程获取确切位置 并传递给 hander 将 locationView内容设置为地址
+                    String s = String.format("经度：%s     纬度：%s", String.format("%.6f", longitude), String.format("%.6f", latitude));
+                    Log.d("##",s);
+                    locationView.setText(s);
+                    count++;
+                }
             }
 
             @Override
@@ -159,31 +200,24 @@ public class ThirdActivity extends AppCompatActivity {
             public void onProviderDisabled(String provider) {
             }
         };
-        //设置参数
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE); // 设置定位精度
-        criteria.setAltitudeRequired(false); // 不需要获取海拔信息
-        criteria.setBearingRequired(false); // 不需要获取方向信息
-        criteria.setCostAllowed(true); // 允许付费定位服务
-        criteria.setPowerRequirement(Criteria.POWER_LOW); // 低功耗定位
 
-        String provider = locationManager.getBestProvider(criteria, true); // 获取最优的定位提供者
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
 
+        String provider = this.getProvider(locationManager);
         if (provider != null) {
             locationManager.requestLocationUpdates(provider, 1000, 0, locationListener); // 设置位置更新条件和监听器
         }
-
     }
+
+
+
+
+
+
+
+
 
     /**
      * 启动拍照意图（Intent）的方法
@@ -271,6 +305,80 @@ public class ThirdActivity extends AppCompatActivity {
         }
         // 传照片至服务器
         Toast.makeText(this, "上传成功", Toast.LENGTH_SHORT).show();
+    }
+
+    //检查手机是否开启定位权限
+    private void checkLocationPermission(LocationManager locationManager){
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        Log.d("###权限###",isGPSEnabled+" "+isNetworkEnabled);
+        if (!isGPSEnabled && !isNetworkEnabled) {
+            // 用户未开启定位服务
+            locationView.setText("手机未开启定位权限");
+        }
+    }
+    //获取位置provider
+    private String getProvider(LocationManager locationManager){
+        //设置参数
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE); // 设置定位精度
+        criteria.setAltitudeRequired(false); // 不需要获取海拔信息
+        criteria.setBearingRequired(false); // 不需要获取方向信息
+        criteria.setCostAllowed(true); // 允许付费定位服务
+        criteria.setPowerRequirement(Criteria.POWER_LOW); // 低功耗定位
+
+        return locationManager.getBestProvider(criteria, true); // 获取最优的定位提供者
+    }
+    //hander
+    private Handler handler;
+    //api获取位置
+    private void getActualLocation(Double latitude,Double longitude){
+        //不返回内容 创建子线程和主线程通信 Message
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection = null;
+                try {
+                    URL url = new URL("https://apis.map.qq.com/ws/geocoder/v1/?location="+latitude+","+longitude+"&key="+MAPKEY);
+                    connection = (HttpURLConnection) url.openConnection();
+                    // 设置请求方法、超时时间等
+                    connection.setConnectTimeout(30000);//30s超时
+                    connection.connect();
+                    // 处理响应
+                    if(connection.getResponseCode()==200){
+                        InputStream inputStream = connection.getInputStream();
+                        InputStreamReader reader = new InputStreamReader(inputStream);
+                        char[] buffer = new char[3072];
+                        reader.read(buffer);
+                        String content = new String(buffer);
+                        JSONObject json = new JSONObject(content);
+
+                        JSONObject result = json.getJSONObject("result");
+                        String addressBig = result.getString("address");
+                        Message msg = new Message();
+                        msg.what = SUCCESS;
+                        if(73.5<longitude&&longitude<135&&4<latitude&&latitude<53.5){
+                            String addressSmall = result.getJSONObject("formatted_addresses").getString("recommend");
+                            msg.obj = addressBig + addressSmall;
+                        }else{
+                            String addressSmall = result.getJSONObject("address_component").getString("locality");
+                            msg.obj = addressBig + addressSmall;
+                        }
+
+                        Log.d("##地址##",msg.obj.toString());
+                        handler.sendMessage(msg);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
+                }
+            }
+        }).start();
     }
 
 }

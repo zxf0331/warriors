@@ -1,7 +1,5 @@
-package com.qm.pages;
+package com.warriors.pages;
 
-
-import static com.google.gson.internal.$Gson$Types.arrayOf;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,7 +11,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -30,12 +27,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
-import androidx.core.content.PermissionChecker;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import com.qm.R;
+import com.warriors.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +38,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -237,7 +229,7 @@ public class ThirdActivity extends AppCompatActivity {
                 //this 表示当前的 Context 对象
                 // "fileprovider" 是在 AndroidManifest.xml 文件中定义的 FileProvider 的 authorities 属性的值，
                 // photoFile 是要共享的本地文件。
-                mImageUri = FileProvider.getUriForFile(this, "com.qm.fileprovider", photoFile);
+                mImageUri = FileProvider.getUriForFile(this, "com.warriors.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
                 //原理里面添加了动态权限，不能与本地权限有冲突
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -255,7 +247,7 @@ public class ThirdActivity extends AppCompatActivity {
 
     /**
      * 创建图像文件的方法。这个方法的作用是创建一个新的 JPEG 格式的图像文件，并返回该文件的 File 对象
-     * 随机路径：com.qm.fileprovider/my_images/JPEG_20230507_041118_8564947155254924464.jpg
+     * 随机路径：com.warriors.fileprovider/my_images/JPEG_20230507_041118_8564947155254924464.jpg
      */
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());

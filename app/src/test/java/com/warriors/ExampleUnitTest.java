@@ -1,4 +1,4 @@
-package com.qm;
+package com.warriors;
 
 import org.junit.Test;
 

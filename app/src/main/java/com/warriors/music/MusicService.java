@@ -1,4 +1,4 @@
-package com.qm.music;
+package com.warriors.music;
 
 import android.app.Service;
 import android.content.Intent;
@@ -60,7 +60,13 @@ public class MusicService extends Service {
     //Binder是一种跨进程的通信方式
     class MusicControl extends Binder{
         public void play(int i){//String path
-            Uri uri=Uri.parse("android.resource://"+getPackageName()+"/raw/"+"music"+i);
+            String[] songs = {
+                    "https://ws.stream.qqmusic.qq.com/C400002gKWXE1w1uv4.m4a?guid=8963676&vkey=3D09F1EDE57FC857F924F2A6B617B0A598640BF8F23AB35901EA5B1C86300E2304FD7105868499B313E2C2F93A1DC934AB805AFE91AE89B9&uin=626567678&fromtag=103032",
+                    "https://sx-sycdn.kuwo.cn/5f1a9892bdbcdfb99d0b09ea2a2a6edd/6482fe37/resource/n3/45/53/3651341960.mp3",
+                    "https://other-web-ri01-sycdn.kuwo.cn/79d4bb59cbb16d1772ced5773a4992d5/6482f070/resource/n1/87/57/3082041059.mp3",
+            };
+//            Uri uri=Uri.parse("android.resource://"+getPackageName()+"/raw/"+"music"+i);
+            Uri uri=Uri.parse(songs[i]);
             try{
                 //重置音乐播放器
                 player.reset();

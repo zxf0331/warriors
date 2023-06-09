@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.qm">
+    package="com.warriors">
     <!-- 请求网络资源 -->
     <!--网络权限-->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 授予应用程序使用摄像头的权限 -->
@@ -24,30 +24,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-<!--        <activity-->
-<!--            android:name=".NewsDetailActivity"-->
-<!--            android:exported="false">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </activity>-->
+
         <activity
-            android:name=".pages.NewsDetailActivity"
+            android:name="com.warriors.pages.NewsDetailActivity"
             android:label="News Detail"
-            android:parentActivityName=".pages.FirstActivity">
+            android:parentActivityName="com.warriors.pages.FirstActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".pages.FirstActivity" />
+                android:value="com.warriors.pages.FirstActivity" />
         </activity>
 
         <!-- android:networkSecurityConfig="@xml/network_security_config" -->
         <service
-            android:name=".music.MusicService"
+            android:name="com.warriors.music.MusicService"
             android:enabled="true"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.warriors.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,19 +51,18 @@
         </activity> <!-- 实现文件共享的常FileProvider 配置 -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.qm.fileprovider"
+            android:authorities="com.warriors.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider> <!-- 文件注册 -->
-        <activity android:name=".pages.FirstActivity" />
-        <activity android:name=".pages.SecondActivity" />
-        <activity android:name=".pages.ThirdActivity" />
-        <activity android:name=".music.MusicActivity" />
-        <activity android:name=".music.LoveActivity" />
-        <activity android:name=".sensor.SensorActivity" />
+        <activity android:name="com.warriors.pages.FirstActivity" />
+        <activity android:name="com.warriors.pages.SecondActivity" />
+        <activity android:name="com.warriors.pages.ThirdActivity" />
+        <activity android:name="com.warriors.music.MusicActivity" />
+        <activity android:name="com.warriors.music.LoveActivity" />
     </application>
 
 </manifest>

@@ -1,8 +1,6 @@
-package com.qm.pages;
+package com.warriors.pages;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
-import com.qm.R;
-import com.qm.music.LoveActivity;
-import com.qm.music.SlidePagerAdapter;
+import com.warriors.R;
+import com.warriors.music.LoveActivity;
+import com.warriors.music.SlidePagerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

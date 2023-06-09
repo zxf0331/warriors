@@ -1,4 +1,4 @@
-package com.qm.music;
+package com.warriors.music;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.qm.R;
+import com.warriors.R;
 
 public class frag2 extends Fragment {
     //创建一个View

@@ -1,4 +1,4 @@
-package com.qm.music;
+package com.warriors.music;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.qm.R;
+import com.warriors.R;
 //适配器类
 public class SlidePagerAdapter extends PagerAdapter {
 

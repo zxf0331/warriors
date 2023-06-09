@@ -1,4 +1,4 @@
-package com.qm.database;
+package com.warriors.database;
 
 import android.content.Context;
 import android.content.SharedPreferences;

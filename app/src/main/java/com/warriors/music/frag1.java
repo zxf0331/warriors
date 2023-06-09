@@ -1,4 +1,4 @@
-package com.qm.music;
+package com.warriors.music;
 
 import androidx.fragment.app.Fragment;
 
@@ -15,12 +15,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.qm.R;
+import com.warriors.R;
 
 public class frag1 extends Fragment {
     private View view;
     //创建歌曲的String数组和歌手图片的int数组
-    public String[] name={"邓紫棋——光年之外","蔡健雅——红色高跟鞋","Taylor Swift——Love Story"};
+    public String[] name={"朴树——平凡之路","红花会——中二病","蔡徐坤 - 只因你太美"};
     public static int[] icons={R.drawable.music,R.drawable.music,R.drawable.music};
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){

@@ -1,4 +1,4 @@
-package com.qm.pages;
+package com.warriors.pages;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.qm.R;
+import com.warriors.R;
 
 public class NewsDetailActivity extends AppCompatActivity {
     private ImageView imageView;

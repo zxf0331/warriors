@@ -1,4 +1,4 @@
-package com.qm.pages;
+package com.warriors.pages;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.qm.R;
+import com.warriors.R;
 
 public class SecondActivity extends AppCompatActivity {
     private ImageView button1,button4;

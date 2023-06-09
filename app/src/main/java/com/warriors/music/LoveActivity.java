@@ -1,6 +1,5 @@
-package com.qm.music;
+package com.warriors.music;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.qm.R;
-import com.qm.pages.FirstActivity;
+import com.warriors.R;
 
 public class LoveActivity extends AppCompatActivity implements View.OnClickListener {
     //创建需要用到的控件的变量

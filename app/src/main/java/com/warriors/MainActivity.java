@@ -1,4 +1,4 @@
-package com.qm;
+package com.warriors;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
@@ -8,21 +8,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.os.Bundle;
-
-import com.qm.database.DBHelper;
-import com.qm.database.SPHelper;
-import com.qm.pages.FirstActivity;
+import com.warriors.database.DBHelper;
+import com.warriors.pages.FirstActivity;
 
 
 /**

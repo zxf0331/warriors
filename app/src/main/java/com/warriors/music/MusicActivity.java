@@ -1,4 +1,4 @@
-package com.qm.music;
+package com.warriors.music;
 
 
 import android.animation.ObjectAnimator;
@@ -19,7 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.qm.R;
+import com.warriors.R;
 
 import static java.lang.Integer.parseInt;
 

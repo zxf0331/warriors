@@ -16,9 +16,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#34D8F6"
+            android:background="#5FCAE4"
             android:gravity="center"
-            android:text="我喜欢"
+            android:textStyle="bold"
+            android:letterSpacing="0.2"
+            android:text="推荐运动音乐"
+            android:textColor="#5167E1"
             android:textSize="35dp" />
     </LinearLayout>
 
@@ -34,7 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="歌曲"
+            android:textColor="#000"
+            android:text="音乐"
             android:textSize="25dp" />
 
         <TextView
@@ -43,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="#000"
             android:text="专辑"
             android:textSize="25dp" />
     </LinearLayout>
@@ -55,9 +60,9 @@
 
     <Button
         android:id="@+id/back_button"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/bg_exit"
-        android:text="点击退出音乐播放器"
+        android:text="Back"
         android:textSize="23sp" />
 </LinearLayout>

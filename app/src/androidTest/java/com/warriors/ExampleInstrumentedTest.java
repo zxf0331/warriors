@@ -1,4 +1,4 @@
-package com.qm;
+package com.warriors;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.qm", appContext.getPackageName());
+        assertEquals("com.warriors", appContext.getPackageName());
     }
 }

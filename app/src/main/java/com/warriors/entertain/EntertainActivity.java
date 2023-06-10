@@ -1,4 +1,4 @@
-package com.warriors.music;
+package com.warriors.entertain;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.warriors.R;
 
-public class LoveActivity extends AppCompatActivity implements View.OnClickListener {
+public class EntertainActivity extends AppCompatActivity implements View.OnClickListener {
     //创建需要用到的控件的变量
-    private TextView tv1, tv2;
+    private TextView tv1, tv2,tv3;
     private FragmentManager fm;
     private FragmentTransaction ft;
 
@@ -21,14 +21,14 @@ public class LoveActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_love);
+        setContentView(R.layout.activity_entertain);
 
         //返回FirstActivity按钮
         Button backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(LoveActivity.this, FirstActivity.class);
+//                Intent intent = new Intent(EntertainActivity.this, FirstActivity.class);
 //                startActivity(intent);
                 finish();
             }
@@ -37,9 +37,11 @@ public class LoveActivity extends AppCompatActivity implements View.OnClickListe
         //绑定控件
         tv1 = (TextView) findViewById(R.id.menu1);
         tv2 = (TextView) findViewById(R.id.menu2);
+        tv3 = (TextView) findViewById(R.id.menu3);
         //设置监听器，固定写法
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
+        tv3.setOnClickListener(this);
         //若是继承FragmentActivity，fm=getFragmentManger();
         fm = getSupportFragmentManager();
         //fm可以理解为Fragment显示的管理者，ft就是它的改变者
@@ -62,6 +64,8 @@ public class LoveActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.menu2:
                 ft.replace(R.id.content, new frag2());
                 break;
+            case R.id.menu3:
+                ft.replace(R.id.content, new frag3());
             default:
                 break;
         }

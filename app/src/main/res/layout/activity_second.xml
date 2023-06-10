@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Warriors Videos"
-        android:paddingLeft="100dp"
+        android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:textColor="#f6c219"
         android:background="#0146ad"
@@ -24,10 +24,17 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="270dp"/>
+        <WebView
+            android:id="@+id/news"
+            android:layout_above="@id/tab_bar2"
+            android:layout_below="@id/webView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
     <!-- 底部导航栏 -->
     <LinearLayout
+        android:id="@+id/tab_bar2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
@@ -56,7 +63,7 @@
 
 
         <ImageView
-            android:id="@+id/image4"
+            android:id="@+id/image3"
             android:layout_width="5dp"
             android:layout_height="60dp"
             android:layout_weight="1"

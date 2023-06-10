@@ -17,15 +17,16 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_marginTop="210dp"
-        android:background="@drawable/button_music"
+        android:background="@drawable/paradise"
         android:textColor="#7510E8"
         android:textSize="20sp"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <!--    item-->
+    <!--item-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/tab_bar"
         android:layout_below="@id/button">
 
         <LinearLayout
@@ -72,6 +73,7 @@
     </LinearLayout>
     <!-- 底部导航栏 -->
     <LinearLayout
+        android:id="@+id/tab_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"

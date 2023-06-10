@@ -1,11 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/pure_bg2"
+
+<WebView android:id="@+id/news"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
 
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
 
+<!--    &lt;!&ndash; 标题栏 &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/title_textview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/article_title"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textAlignment="center"-->
+<!--        android:padding="16dp"-->
+<!--        android:background="@color/colorPrimary"-->
+<!--        android:textColor="@android:color/white"/>-->
 
+<!--    &lt;!&ndash; 图片栏 &ndash;&gt;-->
+<!--    <ImageView-->
+<!--        android:id="@+id/imageview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="180dp"-->
+<!--        android:layout_below="@+id/title_textview"-->
+<!--        android:src="@drawable/sport"-->
+<!--        android:contentDescription="@string/article_title_todo" />-->
 
-</LinearLayout>
+<!--    <ScrollView-->
+<!--        android:layout_below="@+id/imageview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        &lt;!&ndash; 内容栏 &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:scrollbars="vertical"-->
+<!--            android:id="@+id/content_textview"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/article"-->
+<!--            android:textSize="16sp"-->
+<!--            android:padding="16dp"-->
+<!--            android:layout_below="@id/imageview"/>-->
+<!--    </ScrollView>-->
+<!--</RelativeLayout>-->
+

@@ -1,4 +1,4 @@
-package com.warriors.music;
+package com.warriors.entertain;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,14 +13,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import com.warriors.R;
 
 public class frag1 extends Fragment {
     private View view;
     //创建歌曲的String数组和歌手图片的int数组
-    public String[] name={"朴树——平凡之路","红花会——中二病","蔡徐坤 - 只因你太美"};
+    public String[] name={"朴树 — 平凡之路","红花会 — 中二病","蔡徐坤 - 只因你太美"};
     public static int[] icons={R.drawable.music,R.drawable.music,R.drawable.music};
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -33,17 +31,14 @@ public class frag1 extends Fragment {
         //列表设置适配器
         listView.setAdapter(adapter);
         //列表元素的点击监听器
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //创建Intent对象，参数就是从frag1跳转到MusicActivity
-                Intent intent=new Intent(frag1.this.getContext(), MusicActivity.class);
-                //将歌曲名和歌曲的下标存入Intent对象
-                intent.putExtra("name",name[position]);
-                intent.putExtra("position",String.valueOf(position));
-                //开始跳转
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            //创建Intent对象，参数就是从frag1跳转到MusicActivity
+            Intent intent=new Intent(frag1.this.getContext(), MusicActivity.class);
+            //将歌曲名和歌曲的下标存入Intent对象
+            intent.putExtra("name",name[position]);
+            intent.putExtra("position",String.valueOf(position));
+            //开始跳转
+            startActivity(intent);
         });
         return view;
     }

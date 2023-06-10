@@ -27,7 +27,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.warriors.pages.NewsDetailActivity"
+            android:name="com.warriors.tool.NewsDetailActivity"
             android:label="News Detail"
             android:parentActivityName="com.warriors.pages.FirstActivity">
             <meta-data
@@ -37,7 +37,7 @@
 
         <!-- android:networkSecurityConfig="@xml/network_security_config" -->
         <service
-            android:name="com.warriors.music.MusicService"
+            android:name="com.warriors.entertain.MusicService"
             android:enabled="true"
             android:exported="false" />
 
@@ -62,8 +62,8 @@
         <activity android:name="com.warriors.pages.FirstActivity" />
         <activity android:name="com.warriors.pages.SecondActivity" />
         <activity android:name="com.warriors.pages.ThirdActivity" />
-        <activity android:name="com.warriors.music.MusicActivity" />
-        <activity android:name="com.warriors.music.LoveActivity" />
+        <activity android:name="com.warriors.entertain.MusicActivity" />
+        <activity android:name="com.warriors.entertain.EntertainActivity" />
     </application>
 
 </manifest>

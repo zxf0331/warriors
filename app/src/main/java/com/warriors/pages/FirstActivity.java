@@ -14,8 +14,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.warriors.R;
-import com.warriors.music.LoveActivity;
-import com.warriors.music.SlidePagerAdapter;
+import com.warriors.entertain.EntertainActivity;
+import com.warriors.tool.SlidePagerAdapter;
+import com.warriors.tool.NewsDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -231,7 +232,7 @@ public class FirstActivity extends AppCompatActivity {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FirstActivity.this, LoveActivity.class);
+                Intent intent = new Intent(FirstActivity.this, EntertainActivity.class);
                 startActivity(intent);
             }
         });

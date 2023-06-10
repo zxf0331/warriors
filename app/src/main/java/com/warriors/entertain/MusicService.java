@@ -1,4 +1,4 @@
-package com.warriors.music;
+package com.warriors.entertain;
 
 import android.app.Service;
 import android.content.Intent;
@@ -61,9 +61,9 @@ public class MusicService extends Service {
     class MusicControl extends Binder{
         public void play(int i){//String path
             String[] songs = {
-                    "https://ws.stream.qqmusic.qq.com/C400002gKWXE1w1uv4.m4a?guid=8963676&vkey=3D09F1EDE57FC857F924F2A6B617B0A598640BF8F23AB35901EA5B1C86300E2304FD7105868499B313E2C2F93A1DC934AB805AFE91AE89B9&uin=626567678&fromtag=103032",
-                    "https://sx-sycdn.kuwo.cn/5f1a9892bdbcdfb99d0b09ea2a2a6edd/6482fe37/resource/n3/45/53/3651341960.mp3",
-                    "https://ws.stream.qqmusic.qq.com/C400003Yn1vu1BzjDo.m4a?guid=7951402239&vkey=85A1019E82975E498BA3BE8D331C338D37722423A687CC9CC89DD14255F11DDD5F958FE240BE365E47BA2B209131C61CB7DDA89BA1A1A02E&uin=&fromtag=103032",
+                    "https://warriorsgo.oss-cn-chengdu.aliyuncs.com/msc/%E5%B9%B3%E5%87%A1%E4%B9%8B%E8%B7%AF.m4a",
+                    "https://m.hifini.com/music/%E4%B8%AD%E4%BA%8C%E7%97%85%20(Live).m4a",
+                    "https://warriorsgo.oss-cn-chengdu.aliyuncs.com/msc/%E5%8F%AA%E5%9B%A0%E4%BD%A0%E5%A4%AA%E7%BE%8E.m4a"
             };
 //            Uri uri=Uri.parse("android.resource://"+getPackageName()+"/raw/"+"music"+i);
             Uri uri=Uri.parse(songs[i]);

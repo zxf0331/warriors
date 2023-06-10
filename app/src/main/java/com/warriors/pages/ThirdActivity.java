@@ -19,7 +19,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +27,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.warriors.R;
@@ -37,7 +35,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,22 +47,17 @@ import java.util.Locale;
 
 
 public class ThirdActivity extends AppCompatActivity {
-    private ImageView button1, button2, button3, button4;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_SELECT = 2;
 
     private ImageView mProfileImageView;
-    private Button mCameraButton;
-    private Button mGalleryButton;
-    private Button mDownloadButton;
     private Uri mImageUri;
-    private TextView welcome;
 
     private TextView locationView;
     private final String MAPKEY = "SNZBZ-3PAWI-SW5GL-UXEBF-Y2VGK-MAF7V";
     public static final int SUCCESS = 1;
-    public static final int ERROR = 0;
+//    public static final int ERROR = 0;
 
     public ThirdActivity() {
         handler = new Handler(){
@@ -74,7 +66,7 @@ public class ThirdActivity extends AppCompatActivity {
                 if (msg.what == SUCCESS){
                     //显示确切位置
                     CharSequence preText = locationView.getText();
-                    locationView.setText( preText +"\n"+(CharSequence) msg.obj);
+                    locationView.setText(String.format("%s\n%s", preText, msg.obj));
                 }
             }
         };
@@ -85,84 +77,57 @@ public class ThirdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
 
-        button1 = findViewById(R.id.image1);
-        button2 = findViewById(R.id.image2);
-        button4 = findViewById(R.id.image4);
+        ImageView button1 = findViewById(R.id.image1);
+        ImageView button2 = findViewById(R.id.image2);
+        ImageView button4 = findViewById(R.id.image4);
 
 
         mProfileImageView = findViewById(R.id.profile_image_view);//头像
-        mCameraButton = findViewById(R.id.camera_button);//相机
-        mGalleryButton = findViewById(R.id.gallery_button);//相册
-        mDownloadButton = findViewById(R.id.download_button);//上传
-        welcome = findViewById(R.id.welcome);//昵称欢迎
+        Button mCameraButton = findViewById(R.id.camera_button);//相机
+        Button mGalleryButton = findViewById(R.id.gallery_button);//相册
+        Button mDownloadButton = findViewById(R.id.download_button);//上传
+        TextView welcome = findViewById(R.id.welcome);//昵称欢迎
         locationView = findViewById(R.id.location);//定位TextView
 
 
         //添加两个Button，一个用于拍照，另一个用于从相册中选择图片。最后，添加一个Button，用于上传选择的图片。
-        mCameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchTakePictureIntent();
-            }
-        });
+        mCameraButton.setOnClickListener(v -> dispatchTakePictureIntent());
 
-        mGalleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchSelectPictureIntent();
-            }
-        });
+        mGalleryButton.setOnClickListener(v -> dispatchSelectPictureIntent());
 
-        mDownloadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               downloadImage();
-            }
-        });
+        mDownloadButton.setOnClickListener(v -> downloadImage());
 
 
         //导航栏按钮点击事件
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ThirdActivity.this, FirstActivity.class);
-                startActivity(intent);
-            }
+        button1.setOnClickListener(v -> {
+            Intent intent = new Intent(ThirdActivity.this, FirstActivity.class);
+            startActivity(intent);
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
-                startActivity(intent);
-            }
+        button2.setOnClickListener(v -> {
+            Intent intent = new Intent(ThirdActivity.this, SecondActivity.class);
+            startActivity(intent);
         });
 
 
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ThirdActivity.this, ThirdActivity.class);
-                startActivity(intent);
-            }
+        button4.setOnClickListener(v -> {
+            Intent intent = new Intent(ThirdActivity.this, ThirdActivity.class);
+            startActivity(intent);
         });
 
         //获取用户名
         SharedPreferences users = getSharedPreferences("users", MODE_PRIVATE);
-        String welcomeUser = "Welcome " + users.getString("loginName", "游客");
+        String welcomeUser = "Welcome " +"\n"+ users.getString("loginName", "游客");
         welcome.setText(welcomeUser);
 
         //获取当前位置
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);//位置服务对象
         //0.位置点击事件 如果手机没开启定位则打开定位
-        locationView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(locationView.getText()=="手机未开启定位权限"){
-                    Toast.makeText(ThirdActivity.this,"请打开手机定位权限", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivityForResult(intent, 0);
-                }
+        locationView.setOnClickListener(v -> {
+            if(locationView.getText()=="手机未开启定位权限"){
+                Toast.makeText(ThirdActivity.this,"请打开手机定位权限", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivityForResult(intent, 0);
             }
         });
         //1.检查权限
@@ -170,14 +135,14 @@ public class ThirdActivity extends AppCompatActivity {
         //2.位置获取
         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
         LocationListener locationListener = new LocationListener() {
-            private long count = 0l;
+            private long count = 0L;
             @Override
             public void onLocationChanged(Location location) {
                 if(count%100==0){
                     //位置变化时 获取新位置
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
-                    getActualLocation(latitude,longitude);//子线程获取确切位置 并传递给 hander 将 locationView内容设置为地址
+                    getActualLocation(latitude,longitude);//子线程获取确切位置 并传递给 handler 将 locationView内容设置为地址
                     String s = String.format("经度：%s     纬度：%s", String.format("%.6f", longitude), String.format("%.6f", latitude));
                     Log.d("##",s);
                     locationView.setText(s);
@@ -261,12 +226,11 @@ public class ThirdActivity extends AppCompatActivity {
         // 这个临时文件的名称将包含刚刚生成的时间戳字符串，并以 ".jpg" 作为文件扩展名。
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         System.out.println("storageDir = " + storageDir);
-        File imageFile = File.createTempFile(
+        return File.createTempFile(
                 imageFileName,
                 ".jpg",
                 storageDir
         );
-        return imageFile;
     }
 
     /**
@@ -274,9 +238,9 @@ public class ThirdActivity extends AppCompatActivity {
      * 如果请求代码等于 REQUEST_IMAGE_CAPTURE，
      * 并且结果代码等于 RESULT_OK，那么就表示拍照活动已经成功完成并返回了一个图像。
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode ..
+     * @param resultCode ..
+     * @param data ..
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -338,52 +302,49 @@ public class ThirdActivity extends AppCompatActivity {
         return locationManager.getBestProvider(criteria, true); // 获取最优的定位提供者
     }
     //hander
-    private Handler handler;
+    private final Handler handler;
     //api获取位置
     private void getActualLocation(Double latitude,Double longitude){
         //不返回内容 创建子线程和主线程通信 Message
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HttpURLConnection connection = null;
-                try {
-                    URL url = new URL("https://apis.map.qq.com/ws/geocoder/v1/?location="+latitude+","+longitude+"&key="+MAPKEY);
-                    connection = (HttpURLConnection) url.openConnection();
-                    // 设置请求方法、超时时间等
-                    connection.setConnectTimeout(30000);//30s超时
-                    connection.connect();
-                    // 处理响应
-                    if(connection.getResponseCode()==200){
-                        InputStream inputStream = connection.getInputStream();
-                        InputStreamReader reader = new InputStreamReader(inputStream);
-                        char[] buffer = new char[3072];
-                        reader.read(buffer);
-                        String content = new String(buffer);
-                        JSONObject json = new JSONObject(content);
+        new Thread(() -> {
+            HttpURLConnection connection = null;
+            try {
+                URL url = new URL("https://apis.map.qq.com/ws/geocoder/v1/?location="+latitude+","+longitude+"&key="+MAPKEY);
+                connection = (HttpURLConnection) url.openConnection();
+                // 设置请求方法、超时时间等
+                connection.setConnectTimeout(30000);//30s超时
+                connection.connect();
+                // 处理响应
+                if(connection.getResponseCode()==200){
+                    InputStream inputStream = connection.getInputStream();
+                    InputStreamReader reader = new InputStreamReader(inputStream);
+                    char[] buffer = new char[3072];
+                    reader.read(buffer);
+                    String content = new String(buffer);
+                    JSONObject json = new JSONObject(content);
 
-                        JSONObject result = json.getJSONObject("result");
-                        String addressBig = result.getString("address");
-                        Message msg = new Message();
-                        msg.what = SUCCESS;
-                        if(73.5<longitude&&longitude<135&&4<latitude&&latitude<53.5){
-                            String addressSmall = result.getJSONObject("formatted_addresses").getString("recommend");
-                            msg.obj = addressBig + addressSmall;
-                        }else{
-                            String addressSmall = result.getJSONObject("address_component").getString("locality");
-                            msg.obj = addressBig + addressSmall;
-                        }
+                    JSONObject result = json.getJSONObject("result");
+                    String addressBig = result.getString("address");
+                    Message msg = new Message();
+                    msg.what = SUCCESS;
+                    String addressSmall;
+                    if(73.5<longitude&&longitude<135&&4<latitude&&latitude<53.5){
+                        addressSmall = result.getJSONObject("formatted_addresses").getString("recommend");
+                    }else{
+                        addressSmall = result.getJSONObject("address_component").getString("locality");
+                    }
+                    msg.obj = addressBig + addressSmall;
 
-                        Log.d("##地址##",msg.obj.toString());
-                        handler.sendMessage(msg);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    if (connection != null) {
-                        connection.disconnect();
-                    }
+                    Log.d("##地址##",msg.obj.toString());
+                    handler.sendMessage(msg);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
                 }
             }
         }).start();
